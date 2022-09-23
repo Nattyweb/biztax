@@ -1,7 +1,6 @@
 {
   "engines": {
-    "node": "16.17.0",
-    "npm": "8.19.2"
+    "node": "16.17.0"
   },
   "name": "capstone-project-app",
   "version": "0.1.0",
