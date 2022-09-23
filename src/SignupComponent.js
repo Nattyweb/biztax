@@ -11,7 +11,10 @@ import { useState } from 'react';
 // import api from './api';
 import axios from 'axios';
 import swal from 'sweetalert';
-import google from './Images/google.png'
+import google from './Images/google.png';
+import { createEntityAdapter } from '@reduxjs/toolkit';
+
+
 
 const Signup = () => {
 
@@ -34,17 +37,19 @@ const Signup = () => {
       setSignupDetails({
         ...SignupDetails, [e.target.name] : e.target.value
       })
+      console.log(SignupDetails)
     }
   
-    const History = useHistory()
+    const history = useHistory()
     const handleSubmit = (e) => {
       e.preventDefault();
       const data = {
-        FirstName: SignupDetails.firstName,
-        LastName: SignupDetails.lastName,
+        firstName: SignupDetails.firstName,
+        lastName: SignupDetails.lastName,
+        city: SignupDetails.city,
         email: SignupDetails.email,
         CompanyName: SignupDetails.companyName,
-        CompanyRegNo: SignupDetails.CompanyRegNo,
+        CompanyRegNo: SignupDetails.companyRegNo,
         password: SignupDetails.password
 
 
@@ -53,8 +58,9 @@ const Signup = () => {
         try {
   
            const response = await axios.post('https://biztax-backend.herokuapp.com/api/v1/user/adduser', {
-            firstName: data.FirstName,
-             lastName: data.LastName,
+            firstName: data.firstName,
+             lastName: data.lastName,
+             city: data.city,
               email:  data.email,
               companyName: data.CompanyName,
               companyRegNo: data.CompanyRegNo,
@@ -65,7 +71,7 @@ const Signup = () => {
               localStorage.setItem('token', response.data.token);
               localStorage.setItem('username', response.data.newUser);
               swal("Success", response.data.message, "success")
-              History.push('/login')
+              history.push('/login')
             }
             else{
               setSignupDetails({
@@ -139,7 +145,7 @@ const Signup = () => {
               }} 
             type="text"
             placeholder="First Name" 
-            name="First Name" value={SignupDetails.FirstName} onChange={handleInput} />
+            name="firstName" value={SignupDetails.firstName} onChange={handleInput} />
              <Form.Text className="text-danger">{SignupDetails.error_list.FirstName}
                 </Form.Text>
           </Form.Group>
@@ -153,7 +159,7 @@ const Signup = () => {
               maxWidth: '499px'
               }}
                type="text" placeholder="Last Name" 
-               name="Last Name" value={SignupDetails.LastName} onChange={handleInput}/>
+               name="lastName" value={SignupDetails.lastName} onChange={handleInput}/>
                 <Form.Text className="text-danger">{SignupDetails.error_list.LastName}
                 </Form.Text>
           </Form.Group>
@@ -174,7 +180,7 @@ const Signup = () => {
           </Form.Group>
 
           <Form.Group as={Col} controlId="formGridState">
-            <Form.Select className="py-3"
+            <Form.Select className="py-3" onChange={handleInput} name="city"
             style={{
               backgroundColor: '#D9D9D9', 
               borderRadius: '10px',
@@ -245,8 +251,8 @@ const Signup = () => {
               borderRadius: '10px',
               height: '60px',
               maxWidth: '499px'
-              }} type="Company Name" placeholder="Company Name" 
-              name="Company Name" value={SignupDetails.CompanyName} onChange={handleInput} />
+              }} type="text" placeholder="Company Name" 
+              name="companyName" value={SignupDetails.CompanyName} onChange={handleInput} />
                <Form.Text className="text-danger">{SignupDetails.error_list.CompanyName}
                 </Form.Text>
           </Form.Group>
@@ -258,8 +264,8 @@ const Signup = () => {
               borderRadius: '10px',
               height: '60px',
               maxWidth: '499px'
-              }} type="Company Registration No." placeholder="Company Registration No." 
-              name="Company Registration No." value={SignupDetails.CompanyRegistrationNo} onChange={handleInput}/>
+              }} type="text" placeholder="Company Registration No." 
+              name="companyRegNo" value={SignupDetails.CompanyRegistrationNo} onChange={handleInput}/>
                <Form.Text className="text-danger">{SignupDetails.error_list.CompanyRegistrationNo}
                 </Form.Text>
           </Form.Group>
