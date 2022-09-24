@@ -12,7 +12,6 @@ import { useState } from 'react';
 import axios from 'axios';
 import swal from 'sweetalert';
 import google from './Images/google.png';
-import { createEntityAdapter } from '@reduxjs/toolkit';
 
 
 
@@ -66,7 +65,7 @@ const Signup = () => {
               companyRegNo: data.CompanyRegNo,
               password: data.password,
           })
-          if(response.data.status === 201){
+          if(response.data.status === 200){
              console.log(response.data)
               localStorage.setItem('token', response.data.token);
               localStorage.setItem('username', response.data.newUser);
@@ -146,7 +145,7 @@ const Signup = () => {
             type="text"
             placeholder="First Name" 
             name="firstName" value={SignupDetails.firstName} onChange={handleInput} />
-             <Form.Text className="text-danger">{SignupDetails.error_list.FirstName}
+             <Form.Text className="text-danger">{SignupDetails.error_list.firstName}
                 </Form.Text>
           </Form.Group>
 

@@ -21,7 +21,7 @@ const [loginDetails, setLoginDetails] = useState({
 
 
 const history = useHistory();
-const [isPending, setIsPending] = useState(true)
+const [isPending, ] = useState(true)
 const handleInput = (e) => {
   e.persist()
   setLoginDetails({
@@ -57,11 +57,11 @@ const handleSubmit = (e) => {
         swal("Login invalid", res.data.message, "error")
       }
       else{
-        const emailError = res.data.validation_errors.email[0] ?
-        res.data.validation_errors.email[0] : '';
-        const passwordError = res.data.validation_errors.password[0] ?
-        res.data.validation_errors.password[0] : '';
-        const totalError = emailError + passwordError;
+       // //const emailError = res.data.validation_errors.email[0] ?
+       // res.data.validation_errors.email[0] : '';
+        //const passwordError = res.data.validation_errors.password[0] ?
+        //res.data.validation_errors.password[0] : '';
+
          swal("Login Invalid", "error");
        
          setLoginDetails({
